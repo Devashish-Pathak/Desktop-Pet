@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, screen, Tray, Menu, nativeImage } = require('electron');
 const path = require('path');
+const { autoUpdater } = require('electron-updater');
 const { buildPetMenuTemplate } = require('./petMenu');
 const settingsStore = require('./settingsStore');
 
@@ -328,30 +329,46 @@ function applyCameraMoodSetting(enabled) {
   else destroyMoodCamWindow();
 }
 
+// Set once an update has finished downloading; adds a "Restart to Update"
+// entry to the tray/pet menus so installing it is the user's choice, never
+// forced on them mid-session.
+let updateReady = false;
+
+function trayMenuTemplate() {
+  const items = [
+    {
+      label: 'Show / Hide',
+      click: () => {
+        if (!win) return;
+        win.isVisible() ? win.hide() : win.show();
+      },
+    },
+    { label: 'Play Fetch', click: () => triggerFetch() },
+    { label: 'Play Tic Tac Toe', click: () => openTicTacToeWindow() },
+    { label: 'Typing Trainer', click: () => openTypingTrainerWindow() },
+    { label: 'Memory Match', click: () => openMemoryGameWindow() },
+    { label: 'Catch the Treats', click: () => openCatchGameWindow() },
+    { label: 'World Time', click: () => openWorldTimeWindow() },
+    { label: 'Settings…', click: () => openSettingsWindow() },
+  ];
+  if (updateReady) {
+    items.push({ type: 'separator' });
+    items.push({ label: 'Restart to Update', click: () => autoUpdater.quitAndInstall() });
+  }
+  items.push({ type: 'separator' });
+  items.push({ label: 'Quit', click: () => app.quit() });
+  return items;
+}
+
 function createTray() {
   const icon = nativeImage.createFromDataURL(PLACEHOLDER_ICON);
   tray = new Tray(icon);
   tray.setToolTip(settingsStore.get().petName);
-  tray.setContextMenu(
-    Menu.buildFromTemplate([
-      {
-        label: 'Show / Hide',
-        click: () => {
-          if (!win) return;
-          win.isVisible() ? win.hide() : win.show();
-        },
-      },
-      { label: 'Play Fetch', click: () => triggerFetch() },
-      { label: 'Play Tic Tac Toe', click: () => openTicTacToeWindow() },
-      { label: 'Typing Trainer', click: () => openTypingTrainerWindow() },
-      { label: 'Memory Match', click: () => openMemoryGameWindow() },
-      { label: 'Catch the Treats', click: () => openCatchGameWindow() },
-      { label: 'World Time', click: () => openWorldTimeWindow() },
-      { label: 'Settings…', click: () => openSettingsWindow() },
-      { type: 'separator' },
-      { label: 'Quit', click: () => app.quit() },
-    ])
-  );
+  tray.setContextMenu(Menu.buildFromTemplate(trayMenuTemplate()));
+}
+
+function refreshTrayMenu() {
+  if (tray) tray.setContextMenu(Menu.buildFromTemplate(trayMenuTemplate()));
 }
 
 // A packaged build's own exe already knows what to launch, so the default
@@ -372,11 +389,44 @@ function applyLaunchAtStartup(enabled) {
   }
 }
 
+// Checks GitHub Releases (via the `publish` config in package.json) for a
+// newer version than app.getVersion(). Only meaningful in a packaged build —
+// there's no update feed to check when running from source with `npm start`.
+const UPDATE_CHECK_INTERVAL_MS = 4 * 60 * 60 * 1000; // 4 hours
+
+function setupAutoUpdater() {
+  if (!app.isPackaged) return;
+
+  autoUpdater.autoDownload = true;
+
+  autoUpdater.on('update-available', (info) => {
+    if (win) win.webContents.send('update-event', { type: 'available', version: info.version });
+  });
+
+  autoUpdater.on('update-downloaded', (info) => {
+    updateReady = true;
+    refreshTrayMenu();
+    if (win) win.webContents.send('update-event', { type: 'downloaded', version: info.version });
+  });
+
+  // Silent on purpose: "no update available" and transient check/network
+  // errors (e.g. offline) are routine and not worth interrupting anyone for.
+  autoUpdater.on('error', (err) => {
+    console.log(`[auto-updater] ${err?.message || err}`);
+  });
+
+  autoUpdater.checkForUpdates().catch(() => {});
+  setInterval(() => {
+    autoUpdater.checkForUpdates().catch(() => {});
+  }, UPDATE_CHECK_INTERVAL_MS);
+}
+
 app.whenReady().then(() => {
   createWindow();
   createTray();
   applyLaunchAtStartup(settingsStore.get().launchAtStartup);
   applyCameraMoodSetting(settingsStore.get().cameraMoodEnabled);
+  setupAutoUpdater();
 });
 
 ipcMain.on('set-ignore-mouse-events', (_event, ignore, options) => {
@@ -399,6 +449,8 @@ ipcMain.on('show-pet-context-menu', () => {
       openMemoryGame: openMemoryGameWindow,
       openCatchGame: openCatchGameWindow,
       openWorldTime: openWorldTimeWindow,
+      updateReady,
+      restartToUpdate: () => autoUpdater.quitAndInstall(),
     })
   );
   menu.popup({ window: win });

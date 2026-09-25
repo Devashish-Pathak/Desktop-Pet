@@ -11,8 +11,10 @@ function buildPetMenuTemplate({
   openMemoryGame,
   openCatchGame,
   openWorldTime,
+  updateReady,
+  restartToUpdate,
 }) {
-  return [
+  const items = [
     { label: petName || 'Desktop Pet', enabled: false },
     { type: 'separator' },
     { label: 'Play Fetch', click: () => triggerFetch() },
@@ -22,9 +24,14 @@ function buildPetMenuTemplate({
     { label: 'Catch the Treats', click: () => openCatchGame() },
     { label: 'World Time', click: () => openWorldTime() },
     { label: 'Settings…', click: () => openSettings() },
-    { type: 'separator' },
-    { label: 'Quit', click: () => app.quit() },
   ];
+  if (updateReady) {
+    items.push({ type: 'separator' });
+    items.push({ label: 'Restart to Update', click: () => restartToUpdate() });
+  }
+  items.push({ type: 'separator' });
+  items.push({ label: 'Quit', click: () => app.quit() });
+  return items;
 }
 
 module.exports = { buildPetMenuTemplate };

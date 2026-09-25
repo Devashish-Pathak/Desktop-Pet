@@ -129,6 +129,15 @@ window.petAPI.onCameraMoodEvent((reaction) => {
   if (world.settings.voiceEnabled) speak(reaction.phrase);
 });
 
+// Update checks happen silently in the background (see electron/main.js);
+// the pet only speaks up once there's something downloaded and ready, and
+// installing it is still the user's choice via the right-click menu.
+window.petAPI.onUpdateEvent(({ type }) => {
+  if (type === 'downloaded') {
+    world.speech.say('an update is ready! right-click me to restart & install', 4000);
+  }
+});
+
 let dragCandidate = false;
 let sparkleTimer = 0;
 let autosaveTimer = 20000;

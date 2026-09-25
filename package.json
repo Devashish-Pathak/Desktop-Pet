@@ -1,6 +1,6 @@
 {
   "name": "desktop-pet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Windows desktop pet that lives on top of your screen and reacts to your mouse.",
   "main": "electron/main.js",
   "private": true,
@@ -20,10 +20,21 @@
       "target": "nsis",
       "icon": "assets/icon.ico"
     },
+    "nsis": {
+      "artifactName": "Desktop-Pet-Setup-${version}.${ext}"
+    },
     "files": [
       "electron/**/*",
       "src/**/*",
       "assets/**/*"
-    ]
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "Devashish-Pathak",
+      "repo": "Desktop-Pet"
+    }
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9"
   }
 }

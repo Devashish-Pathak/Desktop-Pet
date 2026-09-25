@@ -16,4 +16,5 @@ contextBridge.exposeInMainWorld('petAPI', {
   onMoodEvent: (callback) => ipcRenderer.on('mood-event', (_event, payload) => callback(payload)),
   onCameraMoodEvent: (callback) => ipcRenderer.on('camera-mood-event', (_event, reaction) => callback(reaction)),
   reportMood: (mood) => ipcRenderer.send('pet-mood-update', mood),
+  onUpdateEvent: (callback) => ipcRenderer.on('update-event', (_event, payload) => callback(payload)),
 });
