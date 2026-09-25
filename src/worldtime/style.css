@@ -1,0 +1,212 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #f7f5f2;
+  color: #2b2b2b;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.panel {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.format-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b6b6b;
+  cursor: pointer;
+  user-select: none;
+}
+
+.format-toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: #f2a65a;
+}
+
+.search-wrap {
+  position: relative;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #e0dacf;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+#searchInput:focus {
+  outline: 2px solid #f2a65a55;
+  border-color: #f2a65a;
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e7e1d8;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 5;
+}
+
+.search-results:empty {
+  display: none;
+}
+
+.search-result-item {
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.search-result-item:hover {
+  background: #f7f0e6;
+}
+
+.search-result-item .sr-name {
+  font-weight: 600;
+}
+
+.search-result-item .sr-zone {
+  color: #9a9186;
+  font-size: 11px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e7e1d8;
+  border-radius: 12px;
+  padding: 14px 16px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.card.night {
+  background: #2f3542;
+  border-color: #3d4454;
+  color: #e8e6f0;
+}
+
+.card.night .card-region,
+.card.night .card-date,
+.card.night .card-offset {
+  color: #a8adc0;
+}
+
+.card.pinned-local {
+  border-color: #f2a65a;
+  box-shadow: inset 0 0 0 1px #f2a65a55;
+}
+
+.card-remove {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: none;
+  color: inherit;
+  opacity: 0.45;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px;
+}
+
+.card-remove:hover {
+  opacity: 1;
+}
+
+.card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding-right: 16px;
+}
+
+.card-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.card-region {
+  font-size: 11px;
+  color: #9a9186;
+}
+
+.card-time {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 6px 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-daynight {
+  font-size: 15px;
+}
+
+.card-date {
+  font-size: 11px;
+  color: #9a9186;
+}
+
+.card-offset {
+  font-size: 11px;
+  color: #9a9186;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-diff {
+  font-weight: 600;
+}
+
+.empty-note {
+  text-align: center;
+  color: #9a9186;
+  font-size: 13px;
+  padding: 30px 0;
+}

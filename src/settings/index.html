@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Desktop Pet Settings</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="panel">
+      <h1>Desktop Pet</h1>
+
+      <section>
+        <h2>General</h2>
+        <label class="row column">
+          <span>Name</span>
+          <input type="text" id="petName" maxlength="20" placeholder="Mochi" />
+        </label>
+        <div class="row column">
+          <span>Energy: <b id="energyValue">—</b></span>
+          <div class="energy-bar">
+            <div class="energy-bar-fill" id="energyBarFill"></div>
+          </div>
+        </div>
+        <label class="row">
+          <span>Launch at Windows startup</span>
+          <input type="checkbox" id="launchAtStartup" />
+        </label>
+        <label class="row">
+          <span>Announce the time every hour</span>
+          <input type="checkbox" id="hourlyAnnouncements" />
+        </label>
+        <label class="row">
+          <span>Sound effects</span>
+          <input type="checkbox" id="soundEffects" />
+        </label>
+        <label class="row">
+          <span>Voice (speak reminders &amp; hourly time aloud)</span>
+          <input type="checkbox" id="voiceEnabled" />
+        </label>
+      </section>
+
+      <section>
+        <h2>Appearance</h2>
+        <div class="row">
+          <span>Color</span>
+          <div class="swatches" id="petColor">
+            <button data-value="orange" style="background: #f2a65a" title="Orange"></button>
+            <button data-value="gray" style="background: #9aa3ad" title="Gray"></button>
+            <button data-value="charcoal" style="background: #4b4f58" title="Charcoal"></button>
+            <button data-value="cream" style="background: #f0e4cf" title="Cream"></button>
+          </div>
+        </div>
+        <div class="row">
+          <span>Accessory</span>
+          <div class="segmented" id="accessory">
+            <button data-value="none">None</button>
+            <button data-value="hat">Hat</button>
+            <button data-value="bandana">Bandana</button>
+            <button data-value="collar">Collar</button>
+          </div>
+        </div>
+        <label class="row">
+          <span>Second pet (a friend that wanders and visits)</span>
+          <input type="checkbox" id="secondPetEnabled" />
+        </label>
+      </section>
+
+      <section>
+        <h2>Camera Mood (experimental)</h2>
+        <label class="row">
+          <span>React to your facial expression</span>
+          <input type="checkbox" id="cameraMoodEnabled" />
+        </label>
+        <p class="note" style="margin: 4px 0 0">
+          Fully offline — runs entirely on your machine, nothing is ever sent
+          anywhere or stored. No video preview ever shows. Checks briefly
+          every ~2 minutes; the camera only turns on for that moment, not
+          continuously. Windows will still show its own camera-in-use
+          indicator while checking, and will ask you to grant camera
+          permission the first time.
+        </p>
+      </section>
+
+      <section>
+        <h2>Behavior</h2>
+        <label class="row column">
+          <span>Walk speed: <b id="walkSpeedLabel">1.0x</b></span>
+          <input type="range" id="walkSpeed" min="0.5" max="2" step="0.1" />
+        </label>
+        <div class="row column">
+          <span>Minigames &amp; Tools</span>
+          <div class="button-group">
+            <button id="fetchBtn" class="secondary">Play Fetch</button>
+            <button id="tttBtn" class="secondary">Tic Tac Toe</button>
+            <button id="typingBtn" class="secondary">Typing</button>
+          </div>
+          <div class="button-group">
+            <button id="memoryBtn" class="secondary">Memory</button>
+            <button id="catchBtn" class="secondary">Catch</button>
+            <button id="worldTimeBtn" class="secondary">World Time</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Stats</h2>
+        <div class="stats-grid" id="statsGrid"></div>
+        <button id="resetStatsBtn" class="secondary">Reset Stats</button>
+      </section>
+
+      <section>
+        <h2>Reminders</h2>
+        <div id="reminderList"></div>
+        <div class="reminder-form">
+          <input type="text" id="reminderText" placeholder="e.g. Please stand up and stretch" maxlength="80" />
+          <input type="number" id="reminderInterval" placeholder="min" min="1" max="1440" step="1" />
+          <button id="addReminderBtn" class="secondary">Add</button>
+        </div>
+      </section>
+
+      <div class="footer">
+        <span class="note">More settings coming soon.</span>
+        <button id="closeBtn">Close</button>
+      </div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

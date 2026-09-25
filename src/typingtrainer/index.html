@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Typing Trainer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="panel">
+      <div class="toolbar">
+        <div class="group" id="modeGroup">
+          <button data-mode="time">time</button>
+          <button data-mode="words">words</button>
+        </div>
+        <div class="group" id="timeValues">
+          <button data-value="15">15</button>
+          <button data-value="30">30</button>
+          <button data-value="60">60</button>
+          <button data-value="120">120</button>
+        </div>
+        <div class="group hidden" id="wordValues">
+          <button data-value="10">10</button>
+          <button data-value="25">25</button>
+          <button data-value="50">50</button>
+          <button data-value="100">100</button>
+        </div>
+      </div>
+
+      <div class="live-stat" id="liveStat">30</div>
+
+      <div class="typing-area" id="typingArea">
+        <div class="words" id="wordsEl">
+          <div class="caret" id="caret"></div>
+        </div>
+      </div>
+
+      <div class="hint" id="hint">start typing to begin · <b>Tab</b> to restart</div>
+
+      <div class="results hidden" id="results">
+        <div class="big-wpm"><span id="resWpm">0</span><label>wpm</label></div>
+        <div class="stat-grid">
+          <div><span id="resAcc">0%</span><label>accuracy</label></div>
+          <div><span id="resRaw">0</span><label>raw</label></div>
+          <div><span id="resTime">0s</span><label>time</label></div>
+        </div>
+        <button id="restartBtn" class="secondary">Next Test (Tab)</button>
+      </div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

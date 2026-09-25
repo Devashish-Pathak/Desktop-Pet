@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #f7f5f2;
+  color: #2b2b2b;
+}
+
+.panel {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.status {
+  font-size: 13px;
+  color: #6b6259;
+  min-height: 18px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(3, 80px);
+  gap: 6px;
+  background: #e7e1d8;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.cell {
+  background: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 34px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2b2b2b;
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell.x {
+  color: #4b7bec;
+}
+
+.cell.o {
+  color: #f2a65a;
+}
+
+.cell:not(:disabled):hover {
+  background: #f7f0e6;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+.difficulty-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+select {
+  padding: 5px 6px;
+  border: 1px solid #e0dacf;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: inherit;
+  background: #fff;
+}
+
+button.secondary {
+  border: 1px solid #e0dacf;
+  background: #fff;
+  color: #2b2b2b;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+button.secondary:hover:not(:disabled) {
+  background: #f7f0e6;
+}
+
+button.secondary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

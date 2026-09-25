@@ -1,0 +1,128 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #f7f5f2;
+  color: #2b2b2b;
+  user-select: none;
+}
+
+.panel {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.group {
+  display: flex;
+  gap: 4px;
+  background: #fff;
+  border: 1px solid #e7e1d8;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.group button {
+  border: none;
+  background: none;
+  color: #8a8276;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.group button.selected {
+  background: #f2a65a;
+  color: #fff;
+}
+
+.status {
+  font-size: 13px;
+  color: #6b6259;
+}
+
+.board {
+  display: grid;
+  gap: 8px;
+}
+
+.card {
+  width: 62px;
+  height: 62px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f2a65a;
+  color: transparent;
+}
+
+.card.up {
+  background: #fff;
+  border: 1px solid #e7e1d8;
+  color: inherit;
+}
+
+.card.matched {
+  background: #e5f3e0;
+  border: 1px solid #bcdcae;
+  color: inherit;
+  cursor: default;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.results.hidden {
+  display: none;
+}
+
+.big-text {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sub-text {
+  font-size: 13px;
+  color: #6b6259;
+}
+
+button.secondary {
+  border: 1px solid #e0dacf;
+  background: #fff;
+  color: #2b2b2b;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button.secondary:hover {
+  background: #f7f0e6;
+}

@@ -1,0 +1,290 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #f7f5f2;
+  color: #2b2b2b;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.panel {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.energy-bar {
+  width: 100%;
+  height: 10px;
+  background: #f0ece4;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.energy-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: #f2a65a;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+/* Below this, the pet is actually more likely to go nap in the corner
+   instead of wandering — see LOW_MOOD_THRESHOLD in src/behaviors/idle.js —
+   so the color shift reflects a real behavior change, not an arbitrary cutoff. */
+.energy-bar-fill.low {
+  background: #8fa3b8;
+}
+
+h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8a5a2b;
+  margin: 0 0 8px;
+}
+
+section {
+  background: #ffffff;
+  border: 1px solid #e7e1d8;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.row.column {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  cursor: default;
+}
+
+.row + .row {
+  border-top: 1px solid #f0ece4;
+}
+
+input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: #f2a65a;
+}
+
+input[type='range'] {
+  width: 100%;
+  accent-color: #f2a65a;
+}
+
+input[type='text'] {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #e0dacf;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+input[type='text']:focus {
+  outline: 2px solid #f2a65a55;
+  border-color: #f2a65a;
+}
+
+.button-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+button.secondary {
+  border: 1px solid #e0dacf;
+  background: #fff;
+  color: #2b2b2b;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+button.secondary:hover {
+  background: #f7f0e6;
+}
+
+.swatches {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.swatches button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.swatches button.selected {
+  border-color: #8a5a2b;
+}
+
+.segmented {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.segmented button {
+  border: 1px solid #e0dacf;
+  background: #fff;
+  color: #2b2b2b;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.segmented button.selected {
+  background: #f2a65a;
+  border-color: #f2a65a;
+  color: #fff;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.stats-grid > div {
+  background: #f7f5f2;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.stats-grid .stat-value {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: #f2a65a;
+}
+
+.stats-grid .stat-label {
+  display: block;
+  font-size: 10px;
+  color: #9a9186;
+  margin-top: 2px;
+}
+
+#reminderList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.reminder-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: #f7f5f2;
+  border-radius: 6px;
+}
+
+.reminder-row .reminder-info {
+  flex: 1;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reminder-row input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.reminder-delete {
+  border: none;
+  background: none;
+  color: #b25050;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+
+.reminder-delete:hover {
+  color: #8a2f2f;
+}
+
+.reminder-form {
+  display: flex;
+  gap: 6px;
+}
+
+.reminder-form input[type='text'] {
+  flex: 1;
+}
+
+.reminder-form input[type='number'] {
+  width: 56px;
+  padding: 6px 4px;
+  border: 1px solid #e0dacf;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.note {
+  font-size: 11px;
+  color: #9a9186;
+}
+
+#closeBtn {
+  border: none;
+  background: #f2a65a;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#closeBtn:hover {
+  background: #e0954c;
+}

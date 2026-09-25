@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>World Time</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="panel">
+      <div class="top-row">
+        <h1>World Time</h1>
+        <label class="format-toggle">
+          <input type="checkbox" id="use24Hour" />
+          <span>24h</span>
+        </label>
+      </div>
+
+      <div class="search-wrap">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search a city or timezone to add…"
+          autocomplete="off"
+        />
+        <div class="search-results" id="searchResults"></div>
+      </div>
+
+      <div class="card-grid" id="cardGrid"></div>
+      <div class="empty-note" id="emptyNote" hidden>
+        No cities pinned — search above to add one.
+      </div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
